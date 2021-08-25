@@ -9,8 +9,19 @@
 
 #start {
     position: absolute;
-    left: 50%;
+    left: 48%;
     top: 90%
+}
+
+#score {
+    position: absolute;
+    left: 47%;
+    top: 10%
+}
+#timer {
+    position: absolute;
+    /* top: 10%; */
+    left: 47%;
 }
 body {
     background-color: aqua;

@@ -16,6 +16,8 @@ function gameRender(){
         handleBalloons()
         checkGameState()
         handlePopBalloons()
+        document.getElementById("score").innerHTML = 'Score: ' + score;
+        document.getElementById("timer").innerHTML = 'Timer: ' + timer;
         if (gameLive === false){
             clearInterval(gameRunning)
             handleWinLose()
