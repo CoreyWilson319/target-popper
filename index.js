@@ -9,6 +9,7 @@ let gameLive = true
 
 function gameRender(){
     gameRunning = setInterval(() => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
         handleBalloons()
     }, 33)
     // as long as there is time on the clock gameLive should be true
@@ -19,7 +20,7 @@ function gameRender(){
 function startGame(){
     if (gameLive){
         createBalloons = setInterval(()=>{
-            for (let i = 0; i < 2; i++){
+            for (let i = 0; i < 1; i++){
                 balloonArray.push(new Balloon)
                 // Create five ballons every 2 seconds
 
@@ -27,7 +28,7 @@ function startGame(){
                     clearInterval(createBalloons)
                 }
             }
-        }, 2000)
+        }, 1000)
     }
 }
 
@@ -46,11 +47,14 @@ const mouse = {
 canvas.addEventListener('click', function(e){
     mouse.x = e.x
     mouse.y = e.y
+    console.log("mouse x, y", mouse.x, mouse.y)
     for (let i = 0; i < balloonArray.length; i++ ) {
         if (balloonArray[i].alive) {
             if ((mouse.x - balloonArray[i].x) < 30 && (mouse.y - balloonArray[i].y < 30)){
                 console.log(balloonArray[i])
-                delete balloonArray[i]
+                balloonArray[i].alive = false
+                console.log(balloonArray[i])
+                handlePopBalloons()
             }
         }
     }
@@ -75,12 +79,24 @@ class Balloon {
 
 function handleBalloons() {
     for (let i = 0; i < balloonArray.length; i++) {
-        if (balloonArray[i].alive){
-            // breaks here need to splice out balloon object that should die when clicked
+        if (!balloonArray[i].alive) {
+            balloonArray.splice(index, i)
+            handleBalloons()
+        }
+        if (balloonArray[i].alive) {
             balloonArray[i].draw()
         }
     }
 }
+
+function handlePopBalloons(){
+        for (let i = 0; i < balloonArray.length; i++) {
+            if (balloonArray[i].alive === false) {
+                balloonArray.splice(i, 1)
+                console.log(balloonArray)
+            
+}
+}}
 
 
 
