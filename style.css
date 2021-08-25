@@ -7,6 +7,13 @@
     left: 25%;
 }
 
+#start {
+    position: absolute;
+    left: 50%;
+    top: 90%
+}
 body {
     background-color: aqua;
+    background-image: url('https://wallpaperaccess.com/full/2513419.jpg');
+    background-size: 100%;
 }

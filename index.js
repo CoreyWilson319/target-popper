@@ -5,8 +5,10 @@ canvas.height = window.innerHeight /1.5
 const startButton = document.getElementById("start")
 let balloonArray = []
 let timer = 5
-let gameLive = true
+let gameLive = false
 let score = 0
+
+
 
 function gameRender(){
     gameRunning = setInterval(() => {
@@ -14,31 +16,42 @@ function gameRender(){
         handleBalloons()
         checkGameState()
         handlePopBalloons()
+        if (gameLive === false){
+            clearInterval(gameRunning)
+            handleWinLose()
+            // display some message about trying again and your score
+            // allow try again to run startGame function
+            return
+        }
     }, 33)
-    if (gameLive === false){
-        clearInterval(gameRunning)
-        handleWinLose()
-        // display some message about trying again and your score
-        // allow try again to run startGame function
+}
+
+function handleWinLose(){
+    if (timer <= 0 && score > 70) {
+        // if timer is 0 or less than and the score is at least seven show win if not show loss
+        console.log("YOU WIN")
+        ctx.font = '48px serif';
+        ctx.fill = 'green'
+        ctx.fillText('You Win', canvas.height, 50);
+        return
+    } else {
+        ctx.fill = 'red'
+        ctx.font = '48px serif';
+        ctx.fillText('You Lose', canvas.height, 50);
+        console.log("TRY AGAIN")
         return
     }
 }
 
-function handleWinLose(){
-    if (timer <= 0 && score > 7) {
-        console.log("YOU WIN")
-    } else {
-        console.log("TRY AGAIN")
-    }
-}
-
 function startGame(){
+    timer = 0
     console.log('gameStarted')
     gameLive = true
     score = 0
     timer = 5
     balloonArray = []
     if (gameLive){
+        gameRender()
         createBalloons = setInterval(()=>{
             for (let i = 0; i < 1; i++){
                 balloonArray.push(new Balloon)
@@ -55,6 +68,7 @@ function startGame(){
                 // console.log(gameLive)
             } if (timer <= 0) {
                 gameLive = false
+                clearInterval(createBalloons)
             }
             if (gameLive === false){
                 clearInterval(gameRunning)
@@ -62,13 +76,21 @@ function startGame(){
                 // allow try again to run startGame function
                 return
             }
-        }, 500)
+        }, 1000)
+        if (gameLive === false){
+            clearInterval(gameRunning)
+            // display some message about trying again and your score
+            // allow try again to run startGame function
+            return
     }
+}
 }
 
 startButton.onclick = startGame
+// startButton.onclick = startGame
 
 function checkGameState(){
+    // checks if timer is above zero, if it is make gameLive = true if not gameLive = false and check win/lose
     if (timer > 0) {
         gameLive = true
     } else if(timer === 0){
@@ -115,15 +137,17 @@ class Balloon {
     };
     draw() {
         if (this.alive){
-            ctx.fillStyle = 'blue'
+            ctx.fillStyle = 'red'
             ctx.beginPath();
             ctx.arc(this.x, this.y, 15, 0, Math.PI * 2)
             ctx.fill()
         }
     }
+    // create explode function to pop balloons
 }
 
 function handleBalloons() {
+    // draws balloons if balloon is alive
     for (let i = 0; i < balloonArray.length; i++) {
         if (balloonArray[i].alive) {
             balloonArray[i].draw()
@@ -132,6 +156,7 @@ function handleBalloons() {
 }
 
 function handlePopBalloons(){
+    // removes ballon from balloonArray if balloon has a value of false
     if (gameLive){
         for (let i = 0; i < balloonArray.length; i++) {
             if (balloonArray[i].alive === false) {
@@ -148,6 +173,9 @@ function handlePopBalloons(){
 //  ^ DONE JUST NEEDS DISPLAY
 // enable some way to stop the game and reset the state to the beginning state
     // ^ Works but bug with doubling the rate of balloons that appear
-
+    // COME BACK TO THIS WHEN I GET BACK
+    // DOES NOT HAPPEN IF TIMER RUNS OUT
+    // IT HAPPENS WHEN START IS CLICKED WHILE GAME IS RUNNING
+        // COULD CREATE RESET BUTTON TO REFRESH PAGE (LAZY)
 gameRender()
 // startGame()
