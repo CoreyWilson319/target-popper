@@ -11,6 +11,7 @@ function gameRender(){
     gameRunning = setInterval(() => {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         handleBalloons()
+        
     }, 33)
     // as long as there is time on the clock gameLive should be true
     // while this is true create balloons
