@@ -12,9 +12,6 @@ function gameRender(){
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         handleBalloons()
     }, 33)
-    // as long as there is time on the clock gameLive should be true
-    // while this is true create balloons
-    // if timer runs out gameLive becomes false and stop creating ballons
 }
 
 function startGame(){
@@ -50,12 +47,17 @@ canvas.addEventListener('click', function(e){
     console.log("mouse x, y", mouse.x, mouse.y)
     for (let i = 0; i < balloonArray.length; i++ ) {
         if (balloonArray[i].alive) {
-            if ((mouse.x - balloonArray[i].x) < 30 && (mouse.y - balloonArray[i].y < 30)){
-                console.log(balloonArray[i])
-                balloonArray[i].alive = false
-                console.log(balloonArray[i])
-                handlePopBalloons()
+            // Work on collision
+            // Try accounting for within 15 on the positive > and negative < fro both x and y
+            if (balloonArray[i].x  - mouse.x < 15 && balloonArray[i].x  - mouse.x >= -25 && balloonArray[i].y  - mouse.y < 40 && balloonArray[i].y  - mouse.y >= -50) {
+                // console.log("X Checks out", (balloonArray[i].x - mouse.x))
+                    balloonArray[i].alive = false
+                    console.log(balloonArray[i])
+                    handlePopBalloons()
             }
+            // if (mouse.x - balloonArray[i].x < 15 && mouse.y - balloonArray[i].y < 25){
+            //     console.log(balloonArray[i])
+            // }
         }
     }
 })
@@ -79,10 +81,6 @@ class Balloon {
 
 function handleBalloons() {
     for (let i = 0; i < balloonArray.length; i++) {
-        if (!balloonArray[i].alive) {
-            balloonArray.splice(index, i)
-            handleBalloons()
-        }
         if (balloonArray[i].alive) {
             balloonArray[i].draw()
         }
@@ -98,9 +96,11 @@ function handlePopBalloons(){
 }
 }}
 
+let numbers = [1, 2, 3, 4, 5]
+numbers.splice(2)
+console.log(numbers)
 
-
-
+// balloonArray.push(new Balloon)
 gameRender()
 // window.requestAnimationFrame(startGame)
 startGame()
