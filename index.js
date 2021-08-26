@@ -8,6 +8,7 @@ let timer = 5
 let gameLive = false
 let score = 0
 let setIntervalArray = []
+let gameStatus = null
 
 
 
@@ -49,6 +50,7 @@ function startGame(){
     timer = 5
     balloonArray = []
     setIntervalArray = []
+    document.getElementById('status').innerHTML = ""
     if (gameLive){
         gameRender()
         createBalloons = setInterval(()=>{
@@ -86,11 +88,13 @@ function handleWinLose(){
     if (timer <= 0 && score > 70) {
         // if timer is 0 or less than and the score is at least seven show win if not show loss
         console.log("YOU WIN")
+        document.getElementById('status').innerHTML = "You Win!"
         // ctx.font = '48px serif';
         // ctx.fill = 'green'
         // ctx.fillText('You Win', canvas.height, 50);
         return
     } else {
+        document.getElementById('status').innerHTML = "You Lose, Click Start to try again!"
         // ctx.fill = 'red'
         // ctx.font = '48px serif';
         // ctx.fillText('You Lose', canvas.height, 50);
@@ -153,8 +157,8 @@ canvas.addEventListener('click', function(e){
 
 class Balloon {
     constructor(){
-        this.x = Math.random() * canvas.width + 75;
-        this.y = Math.random() * canvas.height + 75;
+        this.x = Math.random() * (canvas.width - 1) + 1;
+        this.y = Math.random() * (canvas.height - 1) + 1;
         this.alive = true;
         this.size = 30;
     };
@@ -163,8 +167,6 @@ class Balloon {
             ctx.fillStyle = 'red'
             ctx.beginPath();
             ctx.arc(this.x, this.y, 15, 0, Math.PI * 2)
-            // console.log(this)
-            console.log(ctx)
             ctx.fill()
         }
     }
