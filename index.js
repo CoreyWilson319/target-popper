@@ -28,7 +28,6 @@ function gameRender(){
         // }
     }, 33)
     setIntervalArray.push(gameRunning)
-    console.log(setIntervalArray[0])
 }
 
 function stopGame(){
@@ -39,6 +38,7 @@ function stopGame(){
         gameLive = false
         timer = 0
         score = 0
+        balloonArray.splice(0, balloonArray.length)
         balloonArray = []
     }
 }
@@ -52,7 +52,7 @@ function startGame(){
     if (gameLive){
         gameRender()
         createBalloons = setInterval(()=>{
-            for (let i = 0; i < 1; i++){
+            for (let i = 0; i < Math.random() * (3 - 1) + 1; i++){
                 balloonArray.push(new Balloon)
                 // Create 1 ballons every 1 seconds
 
@@ -86,14 +86,14 @@ function handleWinLose(){
     if (timer <= 0 && score > 70) {
         // if timer is 0 or less than and the score is at least seven show win if not show loss
         console.log("YOU WIN")
-        ctx.font = '48px serif';
-        ctx.fill = 'green'
-        ctx.fillText('You Win', canvas.height, 50);
+        // ctx.font = '48px serif';
+        // ctx.fill = 'green'
+        // ctx.fillText('You Win', canvas.height, 50);
         return
     } else {
-        ctx.fill = 'red'
-        ctx.font = '48px serif';
-        ctx.fillText('You Lose', canvas.height, 50);
+        // ctx.fill = 'red'
+        // ctx.font = '48px serif';
+        // ctx.fillText('You Lose', canvas.height, 50);
         console.log("TRY AGAIN")
         return
     }
@@ -163,6 +163,8 @@ class Balloon {
             ctx.fillStyle = 'red'
             ctx.beginPath();
             ctx.arc(this.x, this.y, 15, 0, Math.PI * 2)
+            // console.log(this)
+            console.log(ctx)
             ctx.fill()
         }
     }
