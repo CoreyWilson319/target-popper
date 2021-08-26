@@ -7,6 +7,7 @@ let balloonArray = []
 let timer = 5
 let gameLive = false
 let score = 0
+let setIntervalArray = []
 
 
 
@@ -18,14 +19,67 @@ function gameRender(){
         handlePopBalloons()
         document.getElementById("score").innerHTML = 'Score: ' + score;
         document.getElementById("timer").innerHTML = 'Timer: ' + timer;
-        if (gameLive === false){
-            clearInterval(gameRunning)
-            handleWinLose()
-            // display some message about trying again and your score
-            // allow try again to run startGame function
-            return
-        }
+        // if (gameLive === false){
+        //     stopGame()
+        //     handleWinLose()
+        //     // display some message about trying again and your score
+        //     // allow try again to run startGame function
+        //     return
+        // }
     }, 33)
+    setIntervalArray.push(gameRunning)
+    console.log(setIntervalArray[0])
+}
+
+function stopGame(){
+    if (gameLive){
+        for (let i = 0; i < setIntervalArray.length; i++){
+            clearInterval(setIntervalArray[i])
+        }
+        gameLive = false
+        timer = 0
+        score = 0
+        balloonArray = []
+    }
+}
+function startGame(){
+    console.log('gameStarted')
+    gameLive = true
+    score = 0
+    timer = 5
+    balloonArray = []
+    setIntervalArray = []
+    if (gameLive){
+        gameRender()
+        createBalloons = setInterval(()=>{
+            for (let i = 0; i < 1; i++){
+                balloonArray.push(new Balloon)
+                // Create 1 ballons every 1 seconds
+
+                if (!gameLive){
+                    clearInterval(createBalloons)
+                }
+            }
+            timer = timer - .5
+                // console.log(timer)
+                // console.log(score)
+                // console.log(gameLive)
+            // conditions to make gameLive = false
+            if (timer === 0) {
+                gameLive = false
+            }
+        }, 1000)
+        setIntervalArray.push(createBalloons)
+        if (timer === 0) {
+            handleWinLose()
+            if (gameLive === false){
+                // stopGame()
+                // display some message about trying again and your score
+                // allow try again to run startGame function
+                return
+        }
+        }
+}
 }
 
 function handleWinLose(){
@@ -45,50 +99,17 @@ function handleWinLose(){
     }
 }
 
-function startGame(){
-    timer = 0
-    console.log('gameStarted')
-    gameLive = true
-    score = 0
-    timer = 5
-    balloonArray = []
+
+function restart(){
     if (gameLive){
-        gameRender()
-        createBalloons = setInterval(()=>{
-            for (let i = 0; i < 1; i++){
-                balloonArray.push(new Balloon)
-                // Create 1 ballons every 1 seconds
+        stopGame()
 
-                if (!gameLive){
-                    clearInterval(createBalloons)
-                }
-            }
-            if (gameLive){
-                timer = timer - .5
-                // console.log(timer)
-                // console.log(score)
-                // console.log(gameLive)
-            } if (timer <= 0) {
-                gameLive = false
-                clearInterval(createBalloons)
-            }
-            if (gameLive === false){
-                clearInterval(gameRunning)
-                // display some message about trying again and your score
-                // allow try again to run startGame function
-                return
-            }
-        }, 1000)
-        if (gameLive === false){
-            clearInterval(gameRunning)
-            // display some message about trying again and your score
-            // allow try again to run startGame function
-            return
     }
-}
+    startGame()
+
 }
 
-startButton.onclick = startGame
+startButton.onclick = restart
 // startButton.onclick = startGame
 
 function checkGameState(){
@@ -150,9 +171,11 @@ class Balloon {
 
 function handleBalloons() {
     // draws balloons if balloon is alive
-    for (let i = 0; i < balloonArray.length; i++) {
-        if (balloonArray[i].alive) {
-            balloonArray[i].draw()
+    if (gameLive) {
+        for (let i = 0; i < balloonArray.length; i++) {
+            if (balloonArray[i].alive) {
+                balloonArray[i].draw()
+            }
         }
     }
 }
