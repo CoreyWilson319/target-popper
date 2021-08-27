@@ -9,6 +9,17 @@ let gameLive = false
 let score = 0
 let setIntervalArray = []
 let gameStatus = null
+let timerDisplay = document.getElementById('timer')
+let scoreDisplay = document.getElementById('score')
+let statusDisplay = document.getElementById('status')
+
+function stateReset() {
+    timer = 5
+    score = 0
+    balloonArray = []
+    setIntervalArray = []
+    gameLive = false
+}
 
 
 
@@ -18,15 +29,8 @@ function gameRender(){
         handleBalloons()
         checkGameState()
         handlePopBalloons()
-        document.getElementById("score").innerHTML = 'Score: ' + score;
-        document.getElementById("timer").innerHTML = 'Timer: ' + timer;
-        // if (gameLive === false){
-        //     stopGame()
-        //     handleWinLose()
-        //     // display some message about trying again and your score
-        //     // allow try again to run startGame function
-        //     return
-        // }
+        timerDisplay.innerHTML = 'Timer: ' + timer;
+        scoreDisplay.innerHTML = 'Score: ' + score;
     }, 33)
     setIntervalArray.push(gameRunning)
 }
@@ -36,36 +40,25 @@ function stopGame(){
         for (let i = 0; i < setIntervalArray.length; i++){
             clearInterval(setIntervalArray[i])
         }
-        gameLive = false
-        timer = 0
-        score = 0
-        balloonArray.splice(0, balloonArray.length)
-        balloonArray = []
+        stateReset()
     }
 }
 function startGame(){
-    console.log('gameStarted')
+    stateReset()
     gameLive = true
-    score = 0
-    timer = 5
-    balloonArray = []
-    setIntervalArray = []
-    document.getElementById('status').innerHTML = ""
+    statusDisplay.innerHTML = ""
     if (gameLive){
         gameRender()
         createBalloons = setInterval(()=>{
-            for (let i = 0; i < Math.random() * (2 - 1) + 1; i++){
+            for (let i = 0; i < Math.random() * (4 - 1); i++){
                 balloonArray.push(new Balloon)
-                // Create 1 ballons every 1 seconds
+                // Create random amount of balloons every 1 seconds
 
                 if (!gameLive){
                     clearInterval(createBalloons)
                 }
             }
-            timer = timer - .5
-                // console.log(timer)
-                // console.log(score)
-                // console.log(gameLive)
+            timer = timer - 1
             // conditions to make gameLive = false
             if (timer === 0) {
                 gameLive = false
@@ -75,9 +68,7 @@ function startGame(){
         if (timer === 0) {
             handleWinLose()
             if (gameLive === false){
-                // stopGame()
-                // display some message about trying again and your score
-                // allow try again to run startGame function
+                // escape function if game is over
                 return
         }
         }
@@ -86,19 +77,10 @@ function startGame(){
 
 function handleWinLose(){
     if (timer <= 0 && score > 70) {
-        // if timer is 0 or less than and the score is at least seven show win if not show loss
-        console.log("YOU WIN")
-        document.getElementById('status').innerHTML = "You Win!"
-        // ctx.font = '48px serif';
-        // ctx.fill = 'green'
-        // ctx.fillText('You Win', canvas.height, 50);
+        statusDisplay.innerHTML = "You Win!"
         return
     } else {
-        document.getElementById('status').innerHTML = "You Lose, Click Start to try again!"
-        // ctx.fill = 'red'
-        // ctx.font = '48px serif';
-        // ctx.fillText('You Lose', canvas.height, 50);
-        console.log("TRY AGAIN")
+        statusDisplay.innerHTML = "You Lose, Click Start to try again!"
         return
     }
 }
@@ -114,7 +96,6 @@ function restart(){
 }
 
 startButton.onclick = restart
-// startButton.onclick = startGame
 
 function checkGameState(){
     // checks if timer is above zero, if it is make gameLive = true if not gameLive = false and check win/lose
@@ -126,6 +107,7 @@ function checkGameState(){
     }
 }
 
+// Come back to this to make game canvas fit screen after resizing window
 // window.addEventListener('resize', function() {
 //     canvas.width = window.innerWidth;
 //     canvas.height = window.innerHeight;
@@ -142,7 +124,6 @@ canvas.addEventListener('click', function(e){
     const rect = canvas.getBoundingClientRect()
     mouse.x = e.x - rect.left
     mouse.y = e.y - rect.top
-    console.log("mouse x, y", mouse.x, mouse.y)
     for (let i = 0; i < balloonArray.length; i++ ) {
         if (balloonArray[i].alive) {
             if (balloonArray[i].x  - mouse.x < 15 && balloonArray[i].x  - mouse.x >= -25 && balloonArray[i].y  - mouse.y < 40 && balloonArray[i].y  - mouse.y >= -50) {
@@ -197,14 +178,4 @@ function handlePopBalloons(){
 }}
 
 
-// Wrap start game function to start button DONE
-// Add a way to keep score as well as a timer 
-//  ^ DONE JUST NEEDS DISPLAY
-// enable some way to stop the game and reset the state to the beginning state
-    // ^ Works but bug with doubling the rate of balloons that appear
-    // COME BACK TO THIS WHEN I GET BACK
-    // DOES NOT HAPPEN IF TIMER RUNS OUT
-    // IT HAPPENS WHEN START IS CLICKED WHILE GAME IS RUNNING
-        // COULD CREATE RESET BUTTON TO REFRESH PAGE (LAZY)
 gameRender()
-// startGame()
