@@ -54,7 +54,7 @@ function startGame(){
     if (gameLive){
         gameRender()
         createBalloons = setInterval(()=>{
-            for (let i = 0; i < Math.random() * (3 - 1) + 1; i++){
+            for (let i = 0; i < Math.random() * (2 - 1) + 1; i++){
                 balloonArray.push(new Balloon)
                 // Create 1 ballons every 1 seconds
 
