@@ -108,10 +108,10 @@ function checkGameState(){
 }
 
 // Come back to this to make game canvas fit screen after resizing window
-// window.addEventListener('resize', function() {
-//     canvas.width = window.innerWidth;
-//     canvas.height = window.innerHeight;
-// })
+window.addEventListener('resize', function() {
+    canvas.width = window.innerWidth / 2
+    canvas.height = window.innerHeight / 1.5
+})
 
 // default mouse values
 const mouse = {

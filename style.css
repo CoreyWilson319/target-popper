@@ -6,6 +6,12 @@
     top: 20%;
     left: 25%;
 }
+#status {
+    position: relative;
+    margin: 10px;
+    text-align: center;
+    margin-top: 10%
+}
 
 #start {
     position: absolute;
