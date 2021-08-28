@@ -24,6 +24,11 @@
     left: 47%;
     top: 10%
 }
+#highScore {
+    position: absolute;
+    left: 47%;
+    top: 13%
+}
 #timer {
     position: absolute;
     /* top: 10%; */

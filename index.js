@@ -1,27 +1,30 @@
+// Create Canvas
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d")
 canvas.width = window.innerWidth / 2
 canvas.height = window.innerHeight /1.5
+
+// DOM elements
 const startButton = document.getElementById("start")
+let timerDisplay = document.getElementById('timer')
+let scoreDisplay = document.getElementById('score')
+let highScoreDisplay = document.getElementById('highScore')
+let statusDisplay = document.getElementById('status')
 let balloonArray = []
-let timer = 5
+let timer = 10
 let gameLive = false
 let score = 0
 let setIntervalArray = []
 let gameStatus = null
-let timerDisplay = document.getElementById('timer')
-let scoreDisplay = document.getElementById('score')
-let statusDisplay = document.getElementById('status')
+let highScore = 0
 
 function stateReset() {
-    timer = 5
+    timer = 10
     score = 0
     balloonArray = []
     setIntervalArray = []
     gameLive = false
 }
-
-
 
 function gameRender(){
     gameRunning = setInterval(() => {
@@ -43,6 +46,7 @@ function stopGame(){
         stateReset()
     }
 }
+
 function startGame(){
     stateReset()
     gameLive = true
@@ -76,7 +80,9 @@ function startGame(){
 }
 
 function handleWinLose(){
-    if (timer <= 0 && score > 70) {
+    if (score > highScore) highScore = score
+    highScoreDisplay.innerHTML = 'High Score: ' + highScore;
+    if (timer <= 0 && score > 100) {
         statusDisplay.innerHTML = "You Win!"
         return
     } else {
@@ -172,7 +178,15 @@ function handlePopBalloons(){
             if (balloonArray[i].alive === false) {
                 score += 10
                 balloonArray.splice(i, 1)
-    }
+                // create logic for game to add time on to timer
+            }
+            let bonusScore = [50, 100, 150, 200]
+            for (let k = 0; k < bonusScore.length; k++){
+                if (score === bonusScore[k]) {
+                    score += 5
+                    timer += 5
+                }
+            }
             
 }
 }}
