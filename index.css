@@ -1,0 +1,27 @@
+body {
+    text-align: center;
+}
+.imageContainer {
+    display: flex;
+    justify-content: center;
+}
+
+.gameLinks {
+    text-align: center;
+}
+
+.socials {
+    text-align: center;
+    list-style: none
+}
+
+h3 {
+    text-align: center;
+}
+
+#image {
+    max-width: 50%;
+    height: auto;
+    margin: 0 auto;
+    text-align: center;
+}
