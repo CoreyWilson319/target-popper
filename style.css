@@ -15,11 +15,6 @@
     /* padding: 5%; */
 }
 
-.button {
-    position: relative;
-    text-align: center;
-    margin-top: -100px;
-}
 body {
     background-color: aqua;
     background-image: url('https://wallpaperaccess.com/full/2513419.jpg');
