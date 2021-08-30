@@ -24,7 +24,7 @@ h3 {
 }
 
 #image {
-    border: 2em solid rgb(219, 255, 135);
+    border: 1em solid rgb(219, 255, 135);
     max-width: 50%;
     height: auto;
     margin: 0 auto;
