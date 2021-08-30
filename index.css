@@ -6,6 +6,9 @@ body {
     justify-content: center;
 }
 
+#main {
+    margin-top: 20%;
+}
 .gameLinks {
     text-align: center;
 }
