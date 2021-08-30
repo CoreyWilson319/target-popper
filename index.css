@@ -1,5 +1,6 @@
 body {
     text-align: center;
+    font-family: 'Courgette', cursive;
 }
 .imageContainer {
     display: flex;
@@ -23,8 +24,10 @@ h3 {
 }
 
 #image {
+    border: 2em solid rgb(219, 255, 135);
     max-width: 50%;
     height: auto;
     margin: 0 auto;
     text-align: center;
+    border-radius: 25%;
 }
