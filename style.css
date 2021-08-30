@@ -6,36 +6,23 @@
     top: 20%;
     left: 25%;
 }
-#status {
+
+.container {
     position: relative;
-    margin: 10px;
+    margin: 0 auto;
     text-align: center;
-    margin-top: 10%
+    margin: 10px;
+    /* padding: 5%; */
 }
 
-#start {
-    position: absolute;
-    left: 48%;
-    top: 90%
-}
-
-#score {
-    position: absolute;
-    left: 47%;
-    top: 10%
-}
-#highScore {
-    position: absolute;
-    left: 47%;
-    top: 13%
-}
-#timer {
-    position: absolute;
-    /* top: 10%; */
-    left: 47%;
+.button {
+    position: relative;
+    text-align: center;
+    margin-top: -100px;
 }
 body {
     background-color: aqua;
     background-image: url('https://wallpaperaccess.com/full/2513419.jpg');
     background-size: 100%;
+    /* background-repeat: no-repeat; */
 }

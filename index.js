@@ -2,7 +2,7 @@
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d")
 canvas.width = window.innerWidth / 2
-canvas.height = window.innerHeight /1.5
+canvas.height = window.innerHeight / 1.5
 
 // DOM elements
 const startButton = document.getElementById("start")
@@ -134,13 +134,13 @@ canvas.addEventListener('click', function(e){
         if (balloonArray[i].alive) {
             if (balloonArray[i].x  - mouse.x < 15 && balloonArray[i].x  - mouse.x >= -25 && balloonArray[i].y  - mouse.y < 40 && balloonArray[i].y  - mouse.y >= -50) {
                     balloonArray[i].alive = false
-                    // console.log(balloonArray[i])
                     handlePopBalloons()
             }
 
         }
     }
 })
+
 
 class Balloon {
     constructor(){
@@ -193,3 +193,5 @@ function handlePopBalloons(){
 
 
 gameRender()
+
+// Create hard mode that changes the rate of spawning balloons and timer
